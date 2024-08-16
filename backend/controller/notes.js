@@ -1,5 +1,5 @@
 import Note from "../models/notes_Schema.js";
-
+import mongoose from "mongoose";
 // get all notes
 export async function findAllNotes(req,res) {
     const notes= await Note.find();
@@ -57,9 +57,7 @@ export async function updateNote(req,res) {
 
 export async function deleteNote(req,res) {
     const id = req.params.id;
-    if (!mongoose.Types.ObjectId.isValid(id)) {
-        return res.status(400).json({ message: 'Invalid ID format' });
-    }
+    
     const notes= await Note.findById(id);
 
     if(!notes) return res.status(404).json({ message: 'Note not found' });

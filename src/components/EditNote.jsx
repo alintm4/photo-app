@@ -43,11 +43,6 @@ function EditNote() {
                 },
                 body: JSON.stringify(note),
             });
-
-            if (response.ok) {
-                navigate('/');
-            } 
-            
             
             
     }
