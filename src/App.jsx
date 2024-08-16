@@ -1,17 +1,22 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import React, { useState, useEffect } from 'react';
+import { Outlet } from 'react-router-dom';
+import Navbar from './components/Navbar';
 
 function App() {
-  const [count, setCount] = useState(0)
+    const [isAuthenticated, setIsAuthenticated] = useState(false);
 
-  return (
-    <div>
-      
-        
-    </div>
-  )
+    useEffect(() => {
+        const token = localStorage.getItem('token');
+        if (token) {
+            setIsAuthenticated(true);
+        }
+    }, []);
+
+    return (
+        <>
+            <Navbar isAuthenticated={isAuthenticated} setIsAuthenticated={setIsAuthenticated} />
+<Outlet context={{ isAuthenticated, setIsAuthenticated }} />        </>
+    );
 }
 
-export default App
+export default App;

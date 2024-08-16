@@ -1,21 +1,26 @@
 import { connect } from "mongoose";
-import express from "express"
+import express from "express";
 import cors from 'cors'; 
-import router from "./backend/router/notes";
-import routers from "./backend/router/user";
-const app=express()
+import notesRouter from "./backend/router/notes.js";
+import usersRouter from "./backend/router/user.js";
 
-app.use(express.json())
+const app = express();
+
+// Middleware
+app.use(express.json());
 app.use(cors());
+app.use(express.urlencoded({ extended: false }));
 
+// Connect to MongoDB
 connect("mongodb://127.0.0.1:27017/notes-app")
-.then(()=> console.log("mongo db connected"))
-.catch((err) => console.log("Mongodb error:", err));
+    .then(() => console.log("MongoDB connected"))
+    .catch((err) => console.log("MongoDB error:", err));
 
-app.use("api/notes",router);
-app.use("/api/users",routers)
+// Routes
+app.use("/api/notes", notesRouter);
+app.use("/api/users", usersRouter);
 
-
-app.listen(4001,()=>{
-    console.log("Server started at port 40001")
-})
+// Start the server
+app.listen(5005, () => {
+    console.log("Server started at port 5005");
+});
