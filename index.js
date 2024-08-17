@@ -1,6 +1,6 @@
 import { connect } from "mongoose";
 import express from "express";
-import cors from 'cors'; 
+import cors from "cors";
 import notesRouter from "./backend/router/notes.js";
 import usersRouter from "./backend/router/user.js";
 
@@ -11,16 +11,16 @@ app.use(express.json());
 app.use(cors());
 app.use(express.urlencoded({ extended: false }));
 
-// Connect to MongoDB
+//MongoDB
 connect("mongodb://127.0.0.1:27017/notes-app")
-    .then(() => console.log("MongoDB connected"))
-    .catch((err) => console.log("MongoDB error:", err));
+  .then(() => console.log("MongoDB connected"))
+  .catch((err) => console.log("MongoDB error:", err));
 
 // Routes
 app.use("/api/notes", notesRouter);
 app.use("/api/users", usersRouter);
 
-// Start the server
+//server
 app.listen(5005, () => {
-    console.log("Server started at port 5005");
+  console.log("Server started at port 5005");
 });

@@ -42,42 +42,50 @@ function Notes() {
   };
 
   return (
-    <div>
-      <div className="">
-        <div className="">
-          <h2 className="">All Notes</h2>
-          {notes.length === 0 ? (
-            <p>No notes available.</p>
-          ) : (
-            <ul className="">
-              {notes.map((note) => (
-                <li key={note._id} className="">
-                  <h5>{note.content_title}</h5>
-                  <p>{note.content}</p>
-                  <small>
-                    By {note.author} on{" "}
-                    {new Date(note.date_created).toLocaleDateString()}
-                  </small>
-                  {isAuthenticated && (
-                    <div className="mt-2">
-                      <Link to={`/edit/${note._id}`} className="">
-                        Edit
-                      </Link>
-                      <button
-                        className=""
-                        onClick={() => handleDelete(note._id)}
-                      >
-                        Delete
-                      </button>
-                    </div>
-                  )}
-                </li>
-              ))}
-            </ul>
-          )}
-        </div>
+    <div className="p-4">
+    <h2 className="text-center text-2xl font-semibold mb-4">Posts Available:</h2>
+    {notes.length === 0 ? (
+      <p className="text-center">No notes available.</p>
+    ) : (
+      <div className="grid gap-4 grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
+        {notes.map((note) => (
+          <div key={note._id} className="border rounded p-4 shadow bg-white">
+            <h5 className="text-lg font-semibold">{note.content_title}</h5>
+            
+            {note.thumbnail && (
+              <div className="mt-2">
+                <img
+                  src={note.thumbnail}
+                  alt="Thumbnail"
+                  className="w-full h-[250px] rounded"
+                />
+              </div>
+            )}
+            
+            <p className="mt-2">{note.content}</p>
+            <small className="mt-2 text-gray-600">
+              By {note.author} on {new Date(note.date_created).toLocaleDateString()}
+            </small>
+            
+            {isAuthenticated && (
+              <div className="mt-4 flex space-x-4">
+                <Link to={`/edit/${note._id}`} className="text-blue-500 hover:underline">
+                  Edit
+                </Link>
+                <button
+                  className="bg-red-500 text-white px-2 py-1 rounded hover:bg-red-600"
+                  onClick={() => handleDelete(note._id)}
+                >
+                  Delete
+                </button>
+              </div>
+            )}
+          </div>
+        ))}
       </div>
-    </div>
+    )}
+  </div>
+  
   );
 }
 
