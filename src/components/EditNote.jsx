@@ -47,6 +47,13 @@ function EditNote() {
       },
       body: JSON.stringify(note),
     });
+    // console.log(data);
+    if (response.ok) {
+      navigate('/');
+    } else {
+      console.log("haha");
+    }
+   
   };
 
   return (

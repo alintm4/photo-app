@@ -51,13 +51,12 @@ function Notes() {
         {notes.map((note) => (
           <div key={note._id} className="border rounded p-4 shadow bg-white">
             <h5 className="text-lg font-semibold">{note.content_title}</h5>
-            
             {note.thumbnail && (
               <div className="mt-2">
                 <img
                   src={note.thumbnail}
                   alt="Thumbnail"
-                  className="w-full h-[250px] rounded"
+                  className="w-full h-[300px] rounded"
                 />
               </div>
             )}
