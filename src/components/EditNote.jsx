@@ -14,7 +14,6 @@ function EditNote() {
   useEffect(() => {
     const fetchNote = async () => {
       const token = localStorage.getItem("token");
-
       const response = await fetch(`http://localhost:5005/api/notes/${id}`, {
         method: "GET",
         headers: {
@@ -27,8 +26,10 @@ function EditNote() {
       if (response.ok) {
         setNote(data);
       }
+      else{
+        console.log("error occured");
+      }
     };
-
     fetchNote();
   }, [id]);
 
@@ -38,23 +39,38 @@ function EditNote() {
 
   const onSubmit = async (e) => {
     e.preventDefault();
-    const token = localStorage.getItem("token");
-    const response = await fetch(`http://localhost:5005/api/notes/${id}`, {
-      method: "PATCH",
-      headers: {
-        "Content-Type": "application/json",
-        "x-auth-token": token,
-      },
-      body: JSON.stringify(note),
-    });
-    // console.log(data);
-    if (response.ok) {
-      navigate('/');
-    } else {
-      console.log("haha");
+  
+    // Validate fields
+    if (!note.author || !note.content_title || !note.content || !note.thumbnail) {
+      console.log("Error: All fields are required.");
+      return;
     }
-   
+  
+    const token = localStorage.getItem("token");
+    console.log("Submitting payload:", note);
+  
+    try {
+      const response = await fetch(`http://localhost:5005/api/notes/${id}`, {
+        method: "PATCH",
+        headers: {
+          "Content-Type": "application/json",
+          "x-auth-token": token,
+        },
+        body: JSON.stringify(note),
+      });
+  
+      const responseData = await response.json();
+      if (response.ok) {
+        console.log("Note updated successfully:", responseData);
+        navigate("/");
+      } else {
+        console.error("Error updating note:", responseData);
+      }
+    } catch (error) {
+      console.error("Network error:", error);
+    }
   };
+  
 
   return (
     <div className="font-sans p-6">

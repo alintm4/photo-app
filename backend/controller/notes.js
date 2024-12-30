@@ -50,8 +50,6 @@ export async function updateNote(req, res) {
   await notes.save();
 }
 
-// delete a note
-
 export async function deleteNote(req, res) {
   const id = req.params.id;
 
