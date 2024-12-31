@@ -2,6 +2,7 @@ import jwt from "jsonwebtoken";
 
 export function verifyToken(req, res, next) {
   const token = req.header("x-auth-token");
+  console.log("Received Token:", token);
 
   if (!token)
     return res.status(401).json({ message: "No token, authorization denied" });

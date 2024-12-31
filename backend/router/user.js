@@ -18,7 +18,7 @@ routers.post("/register", async (req, res) => {
   user.password = await bcrypt.hash(password, salt);
   await user.save();
 
-  const accessToken = jwt.sign({ id: user._id }, process.env.JWT_SECRET, {
+  const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET, {
     expiresIn: "2h",
   });
 
@@ -26,7 +26,7 @@ routers.post("/register", async (req, res) => {
     expiresIn: "7d",
   });
 
-  res.status(201).json({ message: "New user registered", accessToken, refreshToken });
+  res.status(201).json({ message: "New user registered", token, refreshToken });
 });
 
 routers.post("/login", async (req, res) => {
@@ -40,7 +40,7 @@ routers.post("/login", async (req, res) => {
     return res.status(400).json({ error: "Invalid username or password" });
   }
 
-  const accessToken = jwt.sign({ id: user._id }, process.env.JWT_SECRET, {
+  const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET, {
     expiresIn: "2h",
   });
 
@@ -48,8 +48,9 @@ routers.post("/login", async (req, res) => {
     expiresIn: "7d",
   });
 
-  res.status(200).json({ message: "Login Successful", accessToken, refreshToken });
+  res.status(200).json({ message: "Login Successful", token, refreshToken });
 });
+
 routers.post("/refresh-token", async (req, res) => {
   const { refreshToken } = req.body;
 
@@ -58,25 +59,21 @@ routers.post("/refresh-token", async (req, res) => {
   }
 
   try {
-    // Verify the refresh token
     const decoded = jwt.verify(refreshToken, process.env.JWT_REFRESH_SECRET);
 
-    // Optional: Check the token against the database to ensure it's valid
     const user = await User.findById(decoded.id);
     if (!user || user.refreshToken !== refreshToken) {
       return res.status(403).json({ message: "Invalid refresh token" });
     }
 
-    // Generate a new access token
-    const accessToken = jwt.sign({ id: user._id }, process.env.JWT_SECRET, {
+    const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET, {
       expiresIn: "2h",
     });
 
-    res.status(200).json({ accessToken });
+    res.status(200).json({ token });
   } catch (err) {
     return res.status(403).json({ message: "Invalid or expired refresh token" });
   }
 });
-
 
 export default routers;

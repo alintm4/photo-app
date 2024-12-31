@@ -7,7 +7,7 @@ function Notes() {
   useEffect(() => {
     const fetchNotes = async () => {
       const token = localStorage.getItem("token");
-      const response = await fetch("http://localhost:5005/api/notes", {
+      const response = await fetch("http://localhost:3000/api/notes", {
         method: "GET",
         headers: {
           "Content-type": "application/json",
@@ -16,18 +16,17 @@ function Notes() {
       });
       if (response.ok) {
         const data = await response.json();
-        setNotes(data); // Update state with fetched data
+        setNotes(data); 
       } else {
         console.log("Failed to fetch notes");
       }
     };
-
     fetchNotes();
   }, []);
 
-  const handleDelete = async (id) => {
+  const handleDelete = async (note_id) => {
     const token = localStorage.getItem("token");
-    const response = await fetch(`http://localhost:5005/api/notes/${id}`, {
+    const response = await fetch(`http://localhost:3000/api/notes/${note_id}`, {
       method: "DELETE",
       headers: {
         "Content-type": "application/json",
@@ -35,8 +34,9 @@ function Notes() {
       },
     });
     if (response.ok) {
-      setNotes(notes.filter((note) => note._id !== id));
+      setNotes(notes.filter((note) => note._id !== note_id));
     } else {
+      console.log("Error is occuring");
       const data = await response.json();
     }
   };
@@ -60,7 +60,6 @@ function Notes() {
                 />
               </div>
             )}
-            
             <p className="mt-2">{note.content}</p>
             <small className="mt-2 text-gray-600">
               By {note.author} on {new Date(note.date_created).toLocaleDateString()}

@@ -9,19 +9,19 @@ function EditNote() {
     content: "",
     thumbnail: "",
   });
-  const navigate = useNavigate();
+  
 
   useEffect(() => {
     const fetchNote = async () => {
       const token = localStorage.getItem("token");
-      const response = await fetch(`http://localhost:5005/api/notes/${id}`, {
+      const url = "http://localhost:3000/api/notes/" + id;
+      const response = await fetch(url, {
         method: "GET",
         headers: {
           "Content-Type": "application/json",
           "x-auth-token": token,
         },
       });
-
       const data = await response.json();
       if (response.ok) {
         setNote(data);
@@ -36,42 +36,35 @@ function EditNote() {
   const onInputChange = (e) => {
     setNote({ ...note, [e.target.name]: e.target.value });
   };
-
+  const navigate = useNavigate();
   const onSubmit = async (e) => {
     e.preventDefault();
-  
-    // Validate fields
     if (!note.author || !note.content_title || !note.content || !note.thumbnail) {
-      console.log("Error: All fields are required.");
+      console.error("Error: All fields are required.");
       return;
     }
-  
     const token = localStorage.getItem("token");
-    console.log("Submitting payload:", note);
-  
-    try {
-      const response = await fetch(`http://localhost:5005/api/notes/${id}`, {
+    if (!token) {
+      console.error("No token found. Please log in.");
+      return;
+    }
+      const url = "http://localhost:3000/api/notes/" + id;
+      const response = await fetch(url,{
         method: "PATCH",
         headers: {
           "Content-Type": "application/json",
           "x-auth-token": token,
         },
-        body: JSON.stringify(note),
+        body: JSON.stringify({
+          author: note.author,
+          content_title: note.content_title,
+          content: note.content,
+          thumbnail: note.thumbnail,
+        }),
       });
-  
-      const responseData = await response.json();
-      if (response.ok) {
-        console.log("Note updated successfully:", responseData);
-        navigate("/");
-      } else {
-        console.error("Error updating note:", responseData);
-      }
-    } catch (error) {
-      console.error("Network error:", error);
-    }
+
   };
   
-
   return (
     <div className="font-sans p-6">
       <h2 className="text-center text-3xl font-bold mb-6">Edit Note</h2>

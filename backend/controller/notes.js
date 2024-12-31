@@ -1,5 +1,4 @@
 import Note from "../models/notes_Schema.js";
-import mongoose from "mongoose";
 // get all notes
 export async function findAllNotes(req, res) {
   const notes = await Note.find();
@@ -17,7 +16,6 @@ export async function findNote(req, res) {
   res.status(201).json(notes);
 }
 
-// create a new note
 
 export async function createNewNote(req, res) {
   const { author, content_title, content, thumbnail } = req.body;
@@ -32,7 +30,6 @@ export async function createNewNote(req, res) {
   res.json({ message: "New notes saved successfully" });
 }
 
-//update a note
 
 export async function updateNote(req, res) {
   const id = req.params.id;

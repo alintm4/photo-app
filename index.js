@@ -21,6 +21,6 @@ app.use("/api/notes", notesRouter);
 app.use("/api/users", usersRouter);
 
 //server
-app.listen(5005, () => {
-  console.log("Server started at port 5005");
+app.listen(3000, () => {
+  console.log("Server started at port 3000");
 });

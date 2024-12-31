@@ -12,7 +12,7 @@ function Register() {
 
   const onSubmit = async (e) => {
     e.preventDefault();
-    const response = await fetch("http://localhost:5005/api/users/register", {
+    const response = await fetch("http://localhost:3000/api/users/register", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
