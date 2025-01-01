@@ -12,7 +12,8 @@ app.use(cors());
 app.use(express.urlencoded({ extended: false }));
 
 //MongoDB
-connect("mongodb://127.0.0.1:27017/notes-app")
+const mongoURL= process.env.MONGO_URL;
+connect(mongoURL)
   .then(() => console.log("MongoDB connected"))
   .catch((err) => console.log("MongoDB error:", err));
 
