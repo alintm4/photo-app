@@ -1,8 +1,8 @@
 import { connect } from "mongoose";
 import express from "express";
 import cors from "cors";
-import notesRouter from "./backend/router/notes.js";
-import usersRouter from "./backend/router/user.js";
+import notesRouter from "./router/notes.js";
+import usersRouter from "./router/user.js";
 
 const app = express();
 
