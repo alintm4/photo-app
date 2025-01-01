@@ -7,7 +7,7 @@ function Notes() {
   useEffect(() => {
     const fetchNotes = async () => {
       const token = localStorage.getItem("token");
-      const response = await fetch("http://localhost:3000/api/notes", {
+      const response = await fetch("https://simple-notes-app-np2c.onrender.com/api/notes", {
         method: "GET",
         headers: {
           "Content-type": "application/json",
@@ -26,7 +26,7 @@ function Notes() {
 
   const handleDelete = async (note_id) => {
     const token = localStorage.getItem("token");
-    const response = await fetch(`http://localhost:3000/api/notes/${note_id}`, {
+    const response = await fetch(`https://simple-notes-app-np2c.onrender.com/api/notes/${note_id}`, {
       method: "DELETE",
       headers: {
         "Content-type": "application/json",

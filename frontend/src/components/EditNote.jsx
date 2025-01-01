@@ -14,7 +14,7 @@ function EditNote() {
   useEffect(() => {
     const fetchNote = async () => {
       const token = localStorage.getItem("token");
-      const url = "http://localhost:3000/api/notes/" + id;
+      const url = "https://simple-notes-app-np2c.onrender.com/api/notes/" + id;
       const response = await fetch(url, {
         method: "GET",
         headers: {
@@ -48,7 +48,7 @@ function EditNote() {
       console.error("No token found. Please log in.");
       return;
     }
-      const url = "http://localhost:3000/api/notes/" + id;
+      const url = "https://simple-notes-app-np2c.onrender.com/api/notes/" + id;
       const response = await fetch(url,{
         method: "PATCH",
         headers: {
