@@ -9,7 +9,6 @@ function EditNote() {
     content: "",
     thumbnail: "",
   });
-  
 
   useEffect(() => {
     const fetchNote = async () => {
@@ -25,9 +24,8 @@ function EditNote() {
       const data = await response.json();
       if (response.ok) {
         setNote(data);
-      }
-      else{
-        console.log("error occured");
+      } else {
+        console.log("Error occurred");
       }
     };
     fetchNote();
@@ -36,6 +34,7 @@ function EditNote() {
   const onInputChange = (e) => {
     setNote({ ...note, [e.target.name]: e.target.value });
   };
+
   const navigate = useNavigate();
   const onSubmit = async (e) => {
     e.preventDefault();
@@ -48,28 +47,33 @@ function EditNote() {
       console.error("No token found. Please log in.");
       return;
     }
-      const url = "https://simple-notes-app-np2c.onrender.com/api/notes/" + id;
-      const response = await fetch(url,{
-        method: "PATCH",
-        headers: {
-          "Content-Type": "application/json",
-          "x-auth-token": token,
-        },
-        body: JSON.stringify({
-          author: note.author,
-          content_title: note.content_title,
-          content: note.content,
-          thumbnail: note.thumbnail,
-        }),
-      });
+    const url = "https://simple-notes-app-np2c.onrender.com/api/notes/" + id;
+    const response = await fetch(url, {
+      method: "PATCH",
+      headers: {
+        "Content-Type": "application/json",
+        "x-auth-token": token,
+      },
+      body: JSON.stringify({
+        author: note.author,
+        content_title: note.content_title,
+        content: note.content,
+        thumbnail: note.thumbnail,
+      }),
+    });
 
+    if (response.ok) {
+      navigate(`/note/${id}`);
+    } else {
+      console.error("Error updating note");
+    }
   };
-  
+
   return (
-    <div className="font-sans p-6">
-      <h2 className="text-center text-3xl font-bold mb-6">Edit Note</h2>
+    <div className="font-sans p-6 bg-gradient-to-r from-gray-900 via-gray-700 to-gray-500 min-h-screen">
+      <h2 className="text-center text-3xl font-bold mb-6 text-white">Edit Note</h2>
       <div className="flex justify-center">
-        <div className="border rounded-lg p-6 shadow-lg max-w-md w-full">
+        <div className="border rounded-lg p-6 shadow-lg max-w-md w-full bg-gray-800 text-white">
           <form onSubmit={onSubmit}>
             <div className="mb-4">
               <label className="block text-xl md:text-2xl mb-2 font-semibold">
@@ -81,7 +85,7 @@ function EditNote() {
                 placeholder="Enter author name"
                 value={note.author}
                 onChange={onInputChange}
-                className="w-full border rounded-md p-3 text-lg"
+                className="w-full border rounded-md p-3 text-lg bg-gray-700 text-white focus:outline-none focus:ring-2 focus:ring-purple-600"
               />
             </div>
 
@@ -95,7 +99,7 @@ function EditNote() {
                 name="content_title"
                 value={note.content_title}
                 onChange={onInputChange}
-                className="w-full border rounded-md p-3 text-lg"
+                className="w-full border rounded-md p-3 text-lg bg-gray-700 text-white focus:outline-none focus:ring-2 focus:ring-purple-600"
               />
             </div>
 
@@ -108,7 +112,7 @@ function EditNote() {
                 name="content"
                 value={note.content}
                 onChange={onInputChange}
-                className="w-full border rounded-md p-3 text-lg h-40 resize-none"
+                className="w-full border rounded-md p-3 text-lg h-40 resize-none bg-gray-700 text-white focus:outline-none focus:ring-2 focus:ring-purple-600"
               ></textarea>
             </div>
 
@@ -122,14 +126,14 @@ function EditNote() {
                 name="thumbnail"
                 value={note.thumbnail}
                 onChange={onInputChange}
-                className="w-full border rounded-md p-3 text-lg"
+                className="w-full border rounded-md p-3 text-lg bg-gray-700 text-white focus:outline-none focus:ring-2 focus:ring-purple-600"
               />
             </div>
 
             <div>
               <button
                 type="submit"
-                className="bg-yellow-700 text-white p-3 rounded-lg w-full font-semibold hover:bg-yellow-800 transition"
+                className="bg-purple-700 text-white p-3 rounded-lg w-full font-semibold hover:bg-purple-800 transition-all duration-300 ease-in-out"
               >
                 Update Note
               </button>

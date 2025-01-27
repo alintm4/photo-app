@@ -14,6 +14,7 @@ function AddNote() {
   const onInputChange = (e) => {
     setNote({ ...note, [e.target.name]: e.target.value });
   };
+
   const onSubmit = async (e) => {
     e.preventDefault();
     const token = localStorage.getItem("token");
@@ -32,14 +33,15 @@ function AddNote() {
     if (response.ok) {
       navigate("/");
     } else {
-      console.log("haha");
+      console.log("Error occurred while creating note");
     }
   };
+
   return (
-    <div className="font-sans p-6">
-      <h2 className="text-center text-3xl font-bold mb-6">Create a New Note</h2>
+    <div className="font-sans p-6 bg-gradient-to-r from-gray-900 via-gray-700 to-gray-500 min-h-screen">
+      <h2 className="text-center text-3xl font-bold mb-6 text-white">Create a New Note</h2>
       <div className="flex justify-center">
-        <div className="border rounded-lg p-6 shadow-lg max-w-md w-full">
+        <div className="border rounded-lg p-6 shadow-lg max-w-md w-full bg-gray-800 text-white">
           <form onSubmit={onSubmit}>
             <div className="mb-4">
               <label className="block text-xl md:text-2xl mb-2 font-semibold">
@@ -51,7 +53,7 @@ function AddNote() {
                 placeholder="Enter Author"
                 value={note.author}
                 onChange={onInputChange}
-                className="w-full border rounded-md p-3 text-lg"
+                className="w-full border rounded-md p-3 text-lg bg-gray-700 text-white focus:outline-none focus:ring-2 focus:ring-purple-600"
               />
             </div>
 
@@ -65,7 +67,7 @@ function AddNote() {
                 name="content_title"
                 value={note.content_title}
                 onChange={onInputChange}
-                className="w-full border rounded-md p-3 text-lg"
+                className="w-full border rounded-md p-3 text-lg bg-gray-700 text-white focus:outline-none focus:ring-2 focus:ring-purple-600"
               />
             </div>
 
@@ -78,7 +80,7 @@ function AddNote() {
                 name="content"
                 value={note.content}
                 onChange={onInputChange}
-                className="w-full border rounded-md p-3 text-lg h-40 resize-none"
+                className="w-full border rounded-md p-3 text-lg h-40 resize-none bg-gray-700 text-white focus:outline-none focus:ring-2 focus:ring-purple-600"
               ></textarea>
             </div>
 
@@ -92,16 +94,16 @@ function AddNote() {
                 name="thumbnail"
                 value={note.thumbnail}
                 onChange={onInputChange}
-                className="w-full border rounded-md p-3 text-lg"
+                className="w-full border rounded-md p-3 text-lg bg-gray-700 text-white focus:outline-none focus:ring-2 focus:ring-purple-600"
               />
             </div>
 
             <div>
               <button
                 type="submit"
-                className="bg-yellow-700 text-white p-3 rounded-lg w-full font-semibold hover:bg-yellow-800 transition"
+                className="bg-purple-700 text-white p-3 rounded-lg w-full font-semibold hover:bg-purple-800 transition-all duration-300 ease-in-out"
               >
-                Add Notes
+                Add Note
               </button>
             </div>
           </form>

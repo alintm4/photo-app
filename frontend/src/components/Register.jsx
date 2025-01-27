@@ -31,39 +31,42 @@ function Register() {
   const token = localStorage.getItem("token");
 
   return (
-    <div className="flex justify-center text-center font-sans">
-      <div className="border rounded p-4 mt-2 shadow">
-        <h2 className="m-3 text-4xl md:text-5xl">Sign Up Page </h2>
+    <div className="flex justify-center items-center min-h-screen bg-gradient-to-r from-gray-900 via-gray-800 to-gray-600">
+      <div className="border rounded-lg p-8 mt-2 shadow-xl bg-white bg-opacity-10 backdrop-blur-lg max-w-sm w-full">
+        <h2 className="m-3 text-4xl text-white font-bold">Sign Up Page</h2>
         <form onSubmit={onSubmit}>
           <div>
-            <label>Username:</label>
+            <label className="text-white text-xl">Username:</label>
             <input
               type="text"
               placeholder="Enter your username"
               name="username"
               value={user.username}
               onChange={onInputChange}
-              className="my-4 rounded-md p-3"
+              className="my-4 rounded-md p-3 w-full bg-gray-700 text-white border-none focus:outline-none focus:ring-2 focus:ring-gray-500"
             />
           </div>
           <div>
-            <label className="pr-1 text-xl md:text-3xl ">Password: </label>
+            <label className="text-white text-xl">Password:</label>
             <input
               type="password"
               name="password"
               placeholder="Enter your password"
               value={user.password}
               onChange={onInputChange}
-              className="my-4 rounded-md p-3"
+              className="my-4 rounded-md p-3 w-full bg-gray-700 text-white border-none focus:outline-none focus:ring-2 focus:ring-gray-500"
             />
           </div>
           <button
             type="submit"
-            className=" cursor-pointer bg-yellow-700 p-2 rounded-lg m-4"
+            className="w-full bg-gray-500 hover:bg-gray-600 p-2 rounded-lg text-white mt-4 transition"
           >
-            Sign In
+            Sign Up
           </button>
         </form>
+        <div className="text-center mt-4">
+          <p className="text-white text-sm">Already have an account? <a href="/login" className="text-gray-400 hover:text-gray-200">Login here</a></p>
+        </div>
       </div>
     </div>
   );

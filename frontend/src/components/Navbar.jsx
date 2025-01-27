@@ -11,33 +11,47 @@ function Navbar({ isAuthenticated, setIsAuthenticated }) {
   };
 
   return (
-    <nav className=" z-50 shadow-xl font-sans mb-2">
-      <div className="grid grid-cols-12">
-        <div className="col-span-4">
-          <Link to="/" className="text-3xl p-3 md:text-4xl   ">
+    <nav className="bg-gradient-to-r from-gray-900 via-gray-700 to-gray-500 shadow-xl font-sans text-white z-50">
+      <div className="container mx-auto flex justify-between items-center p-4">
+        {/* Left Section */}
+        <div>
+          <Link to="/" className="text-3xl md:text-4xl font-bold">
             Home
           </Link>
         </div>
-        <div className="col-span-2"></div>
-        <div className="col-span-6 flex flex-row-reverse text-xl md:3xl pr-7">
+
+        {/* Right Section */}
+        <div className="flex space-x-6 text-lg md:text-xl">
           {isAuthenticated ? (
-            <div>
-              <Link to="/create" className="p-3 ">
+            <>
+              <Link
+                to="/create"
+                className="p-2 px-4 rounded-md hover:bg-gray-800 hover:text-white transition-all duration-300 ease-in-out transform hover:scale-105"
+              >
                 AddNote
               </Link>
-              <button onClick={handleLogout} className="p-3 ">
+              <button
+                onClick={handleLogout}
+                className="p-2 px-4 rounded-md hover:bg-gray-800 hover:text-white transition-all duration-300 ease-in-out transform hover:scale-105"
+              >
                 Logout
               </button>
-            </div>
+            </>
           ) : (
-            <div className="col-span-6 flex flex-row-reverse text-xl md:3xl ">
-              <Link to="/login" className="p-3 ">
+            <>
+              <Link
+                to="/login"
+                className="px-2 rounded-md hover:bg-gray-800 hover:text-white transition-all duration-300 ease-in-out transform hover:scale-105"
+              >
                 Login
               </Link>
-              <Link to="/register" className="p-3 ">
+              <Link
+                to="/register"
+                className="px-2 rounded-md hover:bg-gray-800 hover:text-white transition-all duration-300 ease-in-out transform hover:scale-105"
+              >
                 Register
               </Link>
-            </div>
+            </>
           )}
         </div>
       </div>
